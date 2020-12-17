@@ -1,13 +1,13 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "name": "zp",
         "currency":"rmb",
         "price": 100
 
     },
     {
-        "id": 2,
+        "id": "2",
         "name": "cmm",
         "currency":"rmb",
         "price": 200

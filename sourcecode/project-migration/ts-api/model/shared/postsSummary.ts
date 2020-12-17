@@ -1,12 +1,12 @@
 export interface Posts {
-    id: number,
+    id: string,
     name: string,
     currency:string,
     price: number
 }
 
 export class PostsSummary{
-    id: number;
+    id: string;
     name: string;
     currency: string;
     price: number;
