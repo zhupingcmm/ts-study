@@ -12,6 +12,8 @@ const path_1 = __importDefault(require("path"));
 const apiUploadImg_1 = require("./api/posts/apiUploadImg");
 const errorHandling_1 = require("./api/general/errorHandling");
 const message_1 = require("./model/shared/message");
+const apiPostsChecker_1 = require("./api/posts/apiPostsChecker");
+const apiDownloadImage_1 = require("./api/posts/apiDownloadImage");
 const app = express_1.default();
 //重写 RequestHandler 挂载 user这个新的属性
 const Authrith = (req, res, next) => {
@@ -26,6 +28,14 @@ const logger = (req, res, next) => {
     next();
 };
 // middleware
+//设置允许跨域
+app.use((req, res, next) => {
+    res.set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,DELETE,PATCH,POST'
+    });
+    next();
+});
 app.use(errorHandling_1.apiErrorHandler);
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(Authrith);
@@ -45,10 +55,29 @@ app.get('/', (req, res, next) => {
     res.send("node typescript api is wording!!!");
 });
 app.get('/headers', (req, res, next) => res.json(req.headers));
-app.get('/posts', apiGetPosts_1.apiGetPosts);
+app.get('/posts', apiPostsChecker_1.apiPostsChecker, apiGetPosts_1.apiGetPosts);
 app.get('/posts/:id', apiGetPostDetail_1.apiGetPostDetail);
 app.post('/posts', apiNewPost_1.apiNewPost);
 app.post('/posts/:id/img', apiUploadImg_1.apiUploadImg);
+app.get('/booking/:startData/:endData', (req, res, next) => {
+    console.log(req.params);
+    res.json(req.params);
+});
+// app.param('startData',dataFormateHandler);
+// app.param('endData',dataFormateHandler);
+// response Object
+/**
+ * res.send
+ * res.json
+ * res.format
+ * res.sendFile
+ * res.download
+ *
+ * res.headers : res.get res.set
+ * res.status
+ */
+app.get('/static/download/:id', apiDownloadImage_1.apiDownloadImage);
+app.disable('x-powered-by');
 app.listen(8092, () => {
     console.log('server is runing...');
 });

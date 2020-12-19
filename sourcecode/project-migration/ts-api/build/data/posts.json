@@ -9,7 +9,7 @@
     {
         "id": "2",
         "name": "cmm",
-        "currency": "rmb",
+        "currency": "zgrmb",
         "price": 200,
         "img": ["2.png", "3.png"]
     }
