@@ -7,6 +7,7 @@ class PostsSummary {
         this.name = data.name;
         this.currency = data.currency;
         this.price = data.price;
+        this.img = data.img;
     }
 }
 exports.PostsSummary = PostsSummary;

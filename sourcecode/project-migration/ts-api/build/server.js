@@ -8,6 +8,10 @@ const apiGetPosts_1 = require("./api/posts/apiGetPosts");
 const apiGetPostDetail_1 = require("./api/posts/apiGetPostDetail");
 const apiNewPost_1 = require("./api/posts/apiNewPost");
 const body_parser_1 = __importDefault(require("body-parser"));
+const path_1 = __importDefault(require("path"));
+const apiUploadImg_1 = require("./api/posts/apiUploadImg");
+const errorHandling_1 = require("./api/general/errorHandling");
+const message_1 = require("./model/shared/message");
 const app = express_1.default();
 //重写 RequestHandler 挂载 user这个新的属性
 const Authrith = (req, res, next) => {
@@ -22,17 +26,29 @@ const logger = (req, res, next) => {
     next();
 };
 // middleware
+app.use(errorHandling_1.apiErrorHandler);
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(Authrith);
 app.use('/', logger);
+app.use('/static', express_1.default.static(path_1.default.resolve('./', 'public', 'img')));
+app.use((req, res, next) => {
+    if (req.accepts("application/json")) {
+        next();
+    }
+    else {
+        next(new message_1.apiError('content Type', 'not supported', 500));
+    }
+});
 // routers
 app.get('/', (req, res, next) => {
     console.log('aa');
     res.send("node typescript api is wording!!!");
 });
+app.get('/headers', (req, res, next) => res.json(req.headers));
 app.get('/posts', apiGetPosts_1.apiGetPosts);
 app.get('/posts/:id', apiGetPostDetail_1.apiGetPostDetail);
 app.post('/posts', apiNewPost_1.apiNewPost);
+app.post('/posts/:id/img', apiUploadImg_1.apiUploadImg);
 app.listen(8092, () => {
     console.log('server is runing...');
 });

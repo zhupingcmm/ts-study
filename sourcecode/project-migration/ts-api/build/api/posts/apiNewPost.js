@@ -8,7 +8,8 @@ const apiNewPost = (req, res) => {
         id: uuid_1.v4(),
         name: req.body.name,
         currency: req.body.currency,
-        price: req.body.price
+        price: req.body.price,
+        img: [],
     };
     index_1.DataStore.posts.push(newPost);
     // console.log(req.body);

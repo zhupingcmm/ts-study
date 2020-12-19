@@ -9,7 +9,8 @@ export const apiNewPost: RequestHandler =(req, res) => {
         id:uuidv4(),
         name: req.body.name,
         currency: req.body.currency,
-        price: req.body.price
+        price: req.body.price,
+        img: [],
     }
     DataStore.posts.push(newPost);
 

@@ -3,13 +3,15 @@
         "id": "1",
         "name": "zp",
         "currency":"rmb",
-        "price": 100
+        "price": 100,
+        "img":["1.png","4.png"]
 
     },
     {
         "id": "2",
         "name": "cmm",
         "currency":"rmb",
-        "price": 200
+        "price": 200,
+        "img":["2.png","3.png"]
     }
 ]
